@@ -26,4 +26,9 @@ router.post(
   authMiddleware.verifyToken(ETokenType.REFRESH),
   authController.refresh,
 );
+router.patch("change-password",
+    authMiddleware.verifyToken(ETokenType.ACCESS),
+    commonMiddleware.isBodyValid(UserValidator.changePassword),
+
+    )
 export const authRouter = router;

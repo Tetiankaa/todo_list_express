@@ -5,4 +5,5 @@ export const errorMessages = {
   EMAIL_ALREADY_EXISTS: "User with provided email already exists.",
   INVALID_ID: "Invalid id",
   WRONG_EMAIL_OR_PASSWORD: "Wrong email or password",
+  TASK_NOT_FOUND: "Task was not found",
 };
