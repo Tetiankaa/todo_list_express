@@ -3,6 +3,7 @@ import * as jsonwebtoken from "jsonwebtoken";
 import { config } from "../configs/config";
 import { errorMessages } from "../constants/error-messages.constant";
 import { statusCodes } from "../constants/status-codes.constant";
+import { EActionTokenType } from "../enums/action-token-type.enum";
 import { ETokenType } from "../enums/token-type.enum";
 import { ApiError } from "../errors/api-error";
 import { IJwtPayload } from "../interfaces/jwt-payload.interface";
@@ -55,6 +56,56 @@ class TokenService {
         );
     }
     return secret;
+  }
+
+  public generateActionToken(
+    payload: IJwtPayload,
+    tokenType: EActionTokenType,
+  ): string {
+    try {
+      let secret: string;
+      let expiresIn: string;
+
+      switch (tokenType) {
+        case EActionTokenType.FORGOT_PASSWORD:
+          secret = config.ACTION_TOKEN_FORGOT_PASSWORD_SECRET;
+          expiresIn = config.ACTION_TOKEN_FORGOT_PASSWORD_EXPIRES_IN;
+          break;
+        default:
+          throw new ApiError(
+            statusCodes.UNAUTHORIZED,
+            errorMessages.INVALID_TOKEN_TYPE,
+          );
+      }
+
+      return jsonwebtoken.sign(payload, secret, { expiresIn });
+    } catch (e) {
+      throw new ApiError(statusCodes.UNAUTHORIZED, errorMessages.INVALID_TOKEN);
+    }
+  }
+
+  public verifyActionToken(
+    token: string,
+    tokenType: EActionTokenType,
+  ): IJwtPayload {
+    try {
+      let secret: string;
+
+      switch (tokenType) {
+        case EActionTokenType.FORGOT_PASSWORD:
+          secret = config.ACTION_TOKEN_FORGOT_PASSWORD_SECRET;
+          break;
+        default:
+          throw new ApiError(
+            statusCodes.UNAUTHORIZED,
+            errorMessages.INVALID_TOKEN_TYPE,
+          );
+      }
+
+      return jsonwebtoken.verify(token, secret) as IJwtPayload;
+    } catch (e) {
+      throw new ApiError(statusCodes.UNAUTHORIZED, errorMessages.INVALID_TOKEN);
+    }
   }
 }
 

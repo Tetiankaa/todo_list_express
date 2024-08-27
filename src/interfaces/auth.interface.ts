@@ -10,3 +10,13 @@ export interface IAuthResponseDTO {
   user: IUserDTO;
   tokens: ITokenDTO;
 }
+export interface IChangePassword {
+  oldPassword: string;
+  newPassword: string;
+}
+export interface IForgotPassword {
+  email: string;
+}
+export interface ISetForgotPassword {
+  password: string;
+}

@@ -25,13 +25,11 @@ export class UserValidator {
       "string.empty": "{#label} cannot be an empty field",
       "any.required": "{#label} is a required field",
     });
-
   public static register = Joi.object({
     email: this.email.required(),
     password: this.password.required(),
     fullName: this.fullName.required(),
   });
-
   public static login = Joi.object({
     email: this.email.required(),
     password: this.password.required(),
@@ -40,5 +38,16 @@ export class UserValidator {
   public static changePassword = Joi.object({
     oldPassword: this.password.required(),
     newPassword: this.password.required(),
+  });
+
+  public static forgotPassword = Joi.object({
+    email: this.email.required(),
+  });
+
+  public static setForgotPassword = Joi.object({
+    password: this.password.required(),
+  });
+  public static update = Joi.object({
+    fullName: this.fullName,
   });
 }

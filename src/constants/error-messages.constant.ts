@@ -6,4 +6,6 @@ export const errorMessages = {
   INVALID_ID: "Invalid id",
   WRONG_EMAIL_OR_PASSWORD: "Wrong email or password",
   TASK_NOT_FOUND: "Task was not found",
+  PASSWORD_CHANGE_NOT_ALLOWED: "Password change not allowed",
+  USER_NOT_FOUND: "User not found",
 };
