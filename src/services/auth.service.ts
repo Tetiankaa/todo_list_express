@@ -1,4 +1,3 @@
-import { config } from "../configs/config";
 import { emailSubjects } from "../constants/email-subjects.constant";
 import { errorMessages } from "../constants/error-messages.constant";
 import { statusCodes } from "../constants/status-codes.constant";
